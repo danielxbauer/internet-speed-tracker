@@ -2,6 +2,7 @@ import { Component, computed, inject, resource } from '@angular/core';
 import { Duration } from 'luxon';
 import { aggregateData } from './shared/aggregate.util';
 import { SpeedApiService } from './shared/speed-api.service';
+import { SpeedTrackDto } from './shared/speed-track.dto';
 import { SpeedChart } from './speed-chart';
 import { SpeedTable } from './speed-table';
 
@@ -20,10 +21,10 @@ export class App {
 
   protected speedTracks = this.speedTracksResource.value.asReadonly();
 
-  protected aggregatedSpeedTracks = computed(() => {
+  protected aggregatedSpeedTracks = computed<SpeedTrackDto[]>(() => {
     return aggregateData(
       this.speedTracks(),
       Duration.fromDurationLike({ minutes: 15 })
-    );
+    ).map((item) => ({ timestamp: item.end, speed: item.averageSpeed }));
   });
 }
