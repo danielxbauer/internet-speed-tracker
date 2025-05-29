@@ -9,6 +9,7 @@ Just a little fun project to auto track download speed and visualize it into a c
 ### Install
 
 ```
+cd speedtracker
 python -m venv env
 env\Scripts\activate
 pip install -r requirements.txt
@@ -17,7 +18,7 @@ pip install -r requirements.txt
 ### Track
 
 ```
-python speedtracker/tracker.py
+python tracker.py
 ```
 
 ### Scheduler

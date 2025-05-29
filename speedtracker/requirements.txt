@@ -2,3 +2,4 @@ speedtest-cli
 schedule
 matplotlib
 pandas
+apscheduler
