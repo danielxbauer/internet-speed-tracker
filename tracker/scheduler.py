@@ -17,7 +17,7 @@ def trackJob():
     auto_commit_and_push(csvFile, "feat: Update speed log")
     
 scheduler = BackgroundScheduler()
-job = scheduler.add_job(trackJob, 'cron', minute='*/2')
+job = scheduler.add_job(trackJob, 'cron', minute='*/5')
 
 scheduler.start()
 
