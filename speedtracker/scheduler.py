@@ -20,7 +20,7 @@ def commitJob():
 
 scheduler = BackgroundScheduler()
 job = scheduler.add_job(trackJob, 'cron', minute='*/5')
-scheduler.add_job(commitJob, 'cron', minute='*/30')
+scheduler.add_job(commitJob, 'cron', minute='*/11')
 
 scheduler.start()
 
