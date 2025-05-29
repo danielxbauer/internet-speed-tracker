@@ -1,4 +1,4 @@
-import { Component, computed, inject, resource, signal } from '@angular/core';
+import { Component, computed, inject, resource } from '@angular/core';
 import { DateTime, Duration } from 'luxon';
 import { KpiCard } from './kpi-card';
 import { aggregateData } from './shared/aggregate.util';
@@ -22,10 +22,18 @@ export class App {
 
   protected speedTracks = this.speedTracksResource.value.asReadonly();
 
-  private interval = signal(Duration.fromDurationLike({ minutes: 30 }));
+  protected aggregated15min = computed<AggregatedSpeedTracks[]>(() => {
+    return aggregateData(
+      this.speedTracks(),
+      Duration.fromDurationLike({ minutes: 15 })
+    );
+  });
 
-  protected aggregatedSpeedTracks = computed<AggregatedSpeedTracks[]>(() => {
-    return aggregateData(this.speedTracks(), this.interval());
+  protected aggregated1h = computed<AggregatedSpeedTracks[]>(() => {
+    return aggregateData(
+      this.speedTracks(),
+      Duration.fromDurationLike({ hours: 1 })
+    );
   });
 
   protected lastTrack = computed(() => {

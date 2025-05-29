@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { AggregatedSpeedTracks } from './shared/aggregated-speed-tracks.model';
 
 @Component({
@@ -8,21 +8,17 @@ import { AggregatedSpeedTracks } from './shared/aggregated-speed-tracks.model';
       <table class="min-w-full divide-y divide-gray-200">
         <thead class="bg-gray-100">
           <tr>
-            <th
-              class="px-4 py-2 text-left text-sm font-medium text-gray-700 text-left"
-            >
+            <th class="px-4 py-2 text-sm font-medium text-gray-700 text-left">
               Timestamp
             </th>
-            <th
-              class="px-4 py-2 text-left text-sm font-medium text-gray-700 text-right"
-            >
+            <th class="px-4 py-2 text-sm font-medium text-gray-700 text-right">
               Avg Speed (Mbps)
             </th>
           </tr>
         </thead>
 
         <tbody class="divide-y divide-gray-200">
-          @for( track of speedTracks(); track $index) {
+          @for( track of sortedSpeedTracks(); track $index) {
           <tr
             [class.text-red-500]="track.averageSpeed < 10"
             [class.bg-red-50]="track.averageSpeed < 10"
@@ -52,4 +48,12 @@ import { AggregatedSpeedTracks } from './shared/aggregated-speed-tracks.model';
 })
 export class SpeedTable {
   public speedTracks = input.required<AggregatedSpeedTracks[]>();
+
+  protected sortedSpeedTracks = computed(() => {
+    return this.speedTracks()
+      .slice()
+      .sort((a, b) => {
+        return b.end.toMillis() - a.end.toMillis();
+      });
+  });
 }

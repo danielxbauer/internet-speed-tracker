@@ -2,7 +2,7 @@
   <h2 class="text-2xl font-medium">🚀 Internet Speed</h2>
 
   <div class="relative h-[50vh] w-full">
-    <app-speed-chart [speedTracks]="aggregatedSpeedTracks()" />
+    <app-speed-chart [speedTracks]="aggregated15min()" />
   </div>
 
   <div class="flex gap-3 max-w-md">
@@ -29,8 +29,5 @@
     />
   </div>
 
-  <app-speed-table
-    class="block max-w-md"
-    [speedTracks]="aggregatedSpeedTracks()"
-  />
+  <app-speed-table class="block max-w-md" [speedTracks]="aggregated1h()" />
 </div>

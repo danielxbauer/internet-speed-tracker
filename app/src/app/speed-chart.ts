@@ -82,10 +82,6 @@ function getChartConfig(
         },
       },
       plugins: {
-        title: {
-          display: true,
-          text: 'Internet Speed Over Time',
-        },
         tooltip: {
           mode: 'nearest',
           intersect: false,
