@@ -1,9 +1,36 @@
-<div class="p-4">
+<div class="md:p-4 p-2 flex flex-col gap-4">
   <h2 class="text-2xl font-medium">🚀 Internet Speed</h2>
 
   <div class="relative h-[50vh] w-full">
     <app-speed-chart [speedTracks]="aggregatedSpeedTracks()" />
   </div>
 
-  <app-speed-table [speedTracks]="aggregatedSpeedTracks()" />
+  <div class="flex gap-3 max-w-md">
+    <app-kpi-card
+      class="flex-1"
+      header="Last Track"
+      [subHeader]="lastTrack()?.timestamp?.toFormat('HH:mm') ?? '-'"
+      [value]="lastTrack()?.speed?.toFixed(2) ?? '-'"
+      info="Mbps"
+    />
+    <app-kpi-card
+      class="flex-1"
+      header="Best Speed"
+      subHeader="in last 3 hours"
+      [value]="bestInLast3Hours()?.speed?.toFixed(2) ?? '-'"
+      info="Mbps"
+    />
+    <app-kpi-card
+      class="flex-1"
+      header="Worst Speed"
+      subHeader="in last 3 hours"
+      [value]="wrostInLast3Hours()?.speed?.toFixed(2) ?? '-'"
+      info="Mbps"
+    />
+  </div>
+
+  <app-speed-table
+    class="block max-w-md"
+    [speedTracks]="aggregatedSpeedTracks()"
+  />
 </div>

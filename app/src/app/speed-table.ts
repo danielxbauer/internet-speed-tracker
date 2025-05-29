@@ -4,7 +4,7 @@ import { AggregatedSpeedTracks } from './shared/aggregated-speed-tracks.model';
 @Component({
   selector: 'app-speed-table',
   template: `
-    <table>
+    <table class="w-full">
       <thead>
         <tr>
           <th class="p-1 font-medium text-left">Timestamp</th>
