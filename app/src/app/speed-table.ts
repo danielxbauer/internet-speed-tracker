@@ -12,7 +12,7 @@ import { AggregatedSpeedTracks } from './shared/aggregated-speed-tracks.model';
               Timestamp
             </th>
             <th class="px-4 py-2 text-sm font-medium text-gray-700 text-right">
-              Avg Speed (Mbps)
+              Avg Speed
             </th>
           </tr>
         </thead>
@@ -33,7 +33,10 @@ import { AggregatedSpeedTracks } from './shared/aggregated-speed-tracks.model';
               </div>
             </td>
             <td class="px-4 py-2 text-right">
-              <div class="text-lg">{{ track.averageSpeed.toFixed(2) }}</div>
+              <div class="text-lg">
+                {{ track.averageSpeed.toFixed(2) }}
+                <span class="text-sm">Mbps</span>
+              </div>
               <div class="text-xs text-gray-500">
                 {{ track.minSpeed.toFixed(2) }} -
                 {{ track.maxSpeed.toFixed(2) }}
