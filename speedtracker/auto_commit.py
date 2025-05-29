@@ -15,3 +15,6 @@ def auto_commit_and_push():
     run("git add speed_log.csv")  # Or "." to add everything
     run(f'git commit -m "{commit_msg}"')
     run("git push origin main")  # Or replace `main` with your branch name
+
+if __name__ == "__main__":
+    auto_commit_and_push()

@@ -3,7 +3,7 @@ import time
 from auto_commit import auto_commit_and_push
 from tracker import test_speed, log_speed
 
-interval = 10 # minutes
+interval = 1 # minutes
 
 def job():
     speed = test_speed()
