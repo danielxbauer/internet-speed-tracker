@@ -3,7 +3,7 @@ import speedtest
 from datetime import datetime
 import time
 
-def measure_download_speed(max_retries=3, delay_between_retries=2):
+def measure_download_speed(max_retries=5, delay_between_retries=2):
     for attempt in range(1, max_retries + 1):
         try:            
             st = speedtest.Speedtest()
