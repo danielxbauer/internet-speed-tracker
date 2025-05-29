@@ -1,4 +1,11 @@
-export async function fetchCsvData(csvPath: string) {
+import { Duration } from "luxon";
+
+export interface SpeedData {
+  labels: string[];
+  values: number[];
+}
+
+export async function fetchCsvData(csvPath: string): Promise<SpeedData> {
   const response = await fetch(csvPath);
   const data = await response.text();
 
@@ -15,28 +22,22 @@ export async function fetchCsvData(csvPath: string) {
   return { labels, values };
 }
 
-export function aggregateDataQuarterHour(data: {
-  labels: string[];
-  values: number[];
-}) {
-  const quarterHourData: { labels: string[]; values: number[] } = {
-    labels: [],
-    values: [],
-  };
-  const quarterHourInMs = 10 * 60 * 1000; // 15 minutes in milliseconds
+export function aggregateData(data: SpeedData, interval: Duration) {
+  const aggregatedData: SpeedData = { labels: [], values: [] };
+  const intervalMs = interval.toMillis();
   let currentSum = 0;
   let currentCount = 0;
   let currentStartTime = new Date(data.labels[0]).getTime();
 
   for (let i = 0; i < data.labels.length; i++) {
     const timestamp = new Date(data.labels[i]).getTime();
-    if (timestamp - currentStartTime < quarterHourInMs) {
+    if (timestamp - currentStartTime < intervalMs) {
       currentSum += data.values[i];
       currentCount++;
     } else {
       if (currentCount > 0) {
-        quarterHourData.labels.push(new Date(currentStartTime).toISOString());
-        quarterHourData.values.push(currentSum / currentCount);
+        aggregatedData.labels.push(new Date(currentStartTime).toISOString());
+        aggregatedData.values.push(currentSum / currentCount);
       }
       currentStartTime = timestamp;
       currentSum = data.values[i];
@@ -46,9 +47,9 @@ export function aggregateDataQuarterHour(data: {
 
   // Handle the last segment
   if (currentCount > 0) {
-    quarterHourData.labels.push(new Date(currentStartTime).toISOString());
-    quarterHourData.values.push(currentSum / currentCount);
+    aggregatedData.labels.push(new Date(currentStartTime).toISOString());
+    aggregatedData.values.push(currentSum / currentCount);
   }
 
-  return quarterHourData;
+  return aggregatedData;
 }

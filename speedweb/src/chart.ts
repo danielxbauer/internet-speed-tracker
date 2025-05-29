@@ -1,7 +1,8 @@
 import { type ChartConfiguration } from "chart.js/auto";
 import "chartjs-adapter-luxon";
+import type { SpeedData } from "./fetchCsvData";
 
-export function buildChart(data: { labels: string[]; values: number[] }) {
+export function buildChart(data: SpeedData) {
   const config: ChartConfiguration<"line", number[]> = {
     type: "line",
     data: {
