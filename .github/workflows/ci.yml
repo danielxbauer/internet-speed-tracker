@@ -1,4 +1,4 @@
-name: Vite CI
+name: Build Website
 
 on:
   push:
