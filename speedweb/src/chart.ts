@@ -1,31 +1,12 @@
 import { type ChartConfiguration } from "chart.js/auto";
 import "chartjs-adapter-luxon";
 
-async function fetchCsvData(csvPath: string) {
-  const response = await fetch(csvPath);
-  const data = await response.text();
-
-  const rows = data.trim().split("\n");
-  const labels: string[] = [];
-  const values: number[] = [];
-
-  for (const row of rows) {
-    const [timestamp, speed] = row.split(",");
-    labels.push(timestamp);
-    values.push(parseFloat(speed));
-  }
-
-  return { labels, values };
-}
-
-export async function buildChart(csvPath: string) {
-  const { labels, values } = await fetchCsvData(csvPath);
-
+export function buildChart(data: { labels: string[]; values: number[] }) {
   const config: ChartConfiguration<"line", number[]> = {
     type: "line",
     data: {
-      labels: labels,
-      datasets: [{ label: "Download Speed (Mbps)", data: values }],
+      labels: data.labels,
+      datasets: [{ label: "Download Speed (Mbps)", data: data.values }],
     },
     options: {
       responsive: true,

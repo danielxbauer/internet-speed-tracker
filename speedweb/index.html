@@ -2,15 +2,22 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Internet Speed</title>
   </head>
-  <body>
-    <h2>Download Speed Over Time</h2>
-    <div style="position: relative; height: 50vh; width: 100%">
-      <canvas id="speedChart" width="800" height="400"></canvas>
+  <body class="p-4">
+    <h2 class="text-2xl font-medium">🚀 Internet Speed</h2>
+
+    <div class="relative h-[50dvh] w-full">
+      <canvas id="speedChart"></canvas>
     </div>
+
+    <table id="speedTable"></table>
+
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
