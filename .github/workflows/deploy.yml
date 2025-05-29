@@ -48,7 +48,7 @@ jobs:
       - name: 🆙 Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "./app/dist/browser"
+          path: "./app/dist/app/browser"
 
       - name: 🚀 Deploy to GitHub Pages
         id: deployment

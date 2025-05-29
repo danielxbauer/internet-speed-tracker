@@ -23,16 +23,16 @@ python tracker.py
 
 ### Scheduler
 
-Tracks internet speed every 10 min, writes it into `speed_log.csv` and auto commits.
+Tracks internet speed every x min, writes it into `speed_log.csv` and auto commits.
 
 ```
 python speedtracker/Scheduler.py
 ```
 
-## Website
+## App
 
 ```
-cd ./speedweb
+cd ./app
 npm i
-npm run dev
+npm run start
 ```
