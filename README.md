@@ -1,6 +1,6 @@
 # Internet Speed Tracker
 
-[![Build](https://github.com/danielxbauer/internet-speed-tracker/actions/workflows/ci.yml/badge.svg)](https://github.com/danielxbauer/internet-speed-tracker/actions/workflows/ci.yml)
+[![Build](https://github.com/danielxbauer/internet-speed-tracker/actions/workflows/deploy.yml/badge.svg)](https://github.com/danielxbauer/internet-speed-tracker/actions/workflows/deploy.yml)
 
 Just a little fun project to auto track download speed and visualize it into a chart.
 
