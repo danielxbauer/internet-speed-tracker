@@ -2,7 +2,7 @@ import schedule
 import time
 from tracker import test_speed, log_speed
 
-interval = 1 # minutes
+interval = 10 # minutes
 
 def job():
     speed = test_speed()

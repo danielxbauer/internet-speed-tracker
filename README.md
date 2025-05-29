@@ -11,11 +11,11 @@ pip install -r requirements.txt
 ## Track
 
 ```
-python scheduler.py
+python speedtracker/tracker.py
 ```
 
 ## Visualize
 
 ```
-python plot.py
+python speedtracker/plot.py
 ```
