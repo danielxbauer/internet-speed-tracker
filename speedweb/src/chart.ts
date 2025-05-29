@@ -35,7 +35,7 @@ export async function buildChart(options: {
         x: {
           type: "time",
           time: {
-            unit: "day",
+            unit: "hour",
           },
           title: {
             display: true,
@@ -49,6 +49,12 @@ export async function buildChart(options: {
           },
           beginAtZero: true,
         },
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: {
+        mode: "nearest",
+        intersect: false,
       },
     },
   });
