@@ -1,0 +1,4 @@
+speedtest-cli
+schedule
+matplotlib
+pandas
