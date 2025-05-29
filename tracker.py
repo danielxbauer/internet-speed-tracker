@@ -3,7 +3,7 @@ import speedtest
 from datetime import datetime
 
 def test_speed():
-    st = speedtest.Speedtest()
+    st = speedtest.Speedtest(secure=True)
     download_mbps = st.download() / 1_000_000  # Convert to Mbps
     return download_mbps
 
