@@ -3,5 +3,5 @@ import "./style.css";
 
 buildChart({
   canvasId: "speedChart",
-  csvPath: "../speed_log.csv",
+  csvPath: "speed_log.csv",
 });
