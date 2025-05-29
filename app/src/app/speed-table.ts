@@ -9,8 +9,6 @@ import { AggregatedSpeedTracks } from './shared/aggregated-speed-tracks.model';
         <tr>
           <th class="p-1 font-medium text-left">Timestamp</th>
           <th class="p-1 font-medium text-right">Avg Speed (Mbps)</th>
-          <!-- <th class="p-1 font-medium text-right">Min Speed (Mbps)</th> -->
-          <!-- <th class="p-1 font-medium text-right">Max Speed (Mbps)</th> -->
         </tr>
       </thead>
 
