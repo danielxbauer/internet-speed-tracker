@@ -3,7 +3,7 @@ from datetime import datetime
 from auto_commit import auto_commit_and_push
 from tracker import log_speed, measure_download_speed
 
-csvFile = "../speed_log.csv"
+csvFile = "speed_log.csv"
 
 def timeNow():
     return datetime.now().strftime("%H:%M:%S")

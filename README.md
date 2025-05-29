@@ -22,7 +22,7 @@ pip install -r requirements.txt
 Tracks internet speed and writes it into `speed_log.csv`
 
 ```
-python tracker.py
+python tracker/tracker.py
 ```
 
 ### Scheduler

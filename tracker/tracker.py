@@ -14,5 +14,7 @@ def log_speed(csvFile, speed):
         writer.writerow([timestamp, speed])    
 
 if __name__ == "__main__":
+    print("Measuring download speed...")
     speed = measure_download_speed()
-    log_speed("../speed_log.csv", speed)
+    print(f"Download speed: {speed:.2f} Mbps")
+    log_speed("speed_log.csv", speed)

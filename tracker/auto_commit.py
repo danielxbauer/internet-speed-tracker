@@ -14,4 +14,4 @@ def auto_commit_and_push(csvFile, commitMessage):
     run("git push origin main")  # Or replace `main` with your branch name
 
 if __name__ == "__main__":
-    auto_commit_and_push("../speed_log.csv", "feat: Update speed log")
+    auto_commit_and_push("speed_log.csv", "feat: Update speed log")
