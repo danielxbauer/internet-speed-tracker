@@ -30,6 +30,7 @@
           },
           "configurations": {
             "production": {
+              "baseHref": "/internet-speed-tracker/",
               "budgets": [
                 {
                   "type": "initial",
@@ -45,6 +46,7 @@
               "outputHashing": "all"
             },
             "development": {
+              "baseHref": "/internet-speed-tracker/",
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true

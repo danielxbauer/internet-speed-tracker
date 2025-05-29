@@ -37,10 +37,10 @@ jobs:
           node-version: "20"
 
       - name: 📦 Install dependencies
-        run: cd speedweb && npm install
+        run: cd app && npm install
 
-      - name: 🛠️ Build Vite app
-        run: cd speedweb && npm run build
+      - name: 🛠️ Build app
+        run: cd app && npm run build
 
       - name: 📖 Setup Pages
         uses: actions/configure-pages@v5
@@ -48,7 +48,7 @@ jobs:
       - name: 🆙 Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "./speedweb/dist"
+          path: "./app/dist/browser"
 
       - name: 🚀 Deploy to GitHub Pages
         id: deployment
