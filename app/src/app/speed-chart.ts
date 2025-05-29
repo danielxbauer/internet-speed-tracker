@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import Chart, { type ChartConfiguration } from 'chart.js/auto';
 import 'chartjs-adapter-luxon';
-import { SpeedTrackDto } from './shared/speed-track.dto';
+import { AggregatedSpeedTracks } from './shared/aggregated-speed-tracks.model';
 
 @Component({
   selector: 'app-speed-chart',
@@ -19,7 +19,7 @@ import { SpeedTrackDto } from './shared/speed-track.dto';
   `,
 })
 export class SpeedChart {
-  public speedTracks = input.required<SpeedTrackDto[]>();
+  public speedTracks = input.required<AggregatedSpeedTracks[]>();
 
   protected canvas = viewChild.required('chart', { read: ElementRef });
   private chart: Chart | null = null;
@@ -31,8 +31,8 @@ export class SpeedChart {
     untracked(() => {
       this.chart?.destroy();
 
-      const labels = speedTracks.map((s) => s.timestamp.toISO()!);
-      const values = speedTracks.map((s) => s.speed);
+      const labels = speedTracks.map((s) => s.end.toISO()!);
+      const values = speedTracks.map((s) => s.averageSpeed);
 
       const context = canvasElement.getContext('2d');
       const chartConfig = getChartConfig(labels, values);

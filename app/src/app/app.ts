@@ -1,8 +1,8 @@
-import { Component, computed, inject, resource } from '@angular/core';
+import { Component, computed, inject, resource, signal } from '@angular/core';
 import { Duration } from 'luxon';
 import { aggregateData } from './shared/aggregate.util';
+import { AggregatedSpeedTracks } from './shared/aggregated-speed-tracks.model';
 import { SpeedApiService } from './shared/speed-api.service';
-import { SpeedTrackDto } from './shared/speed-track.dto';
 import { SpeedChart } from './speed-chart';
 import { SpeedTable } from './speed-table';
 
@@ -21,10 +21,9 @@ export class App {
 
   protected speedTracks = this.speedTracksResource.value.asReadonly();
 
-  protected aggregatedSpeedTracks = computed<SpeedTrackDto[]>(() => {
-    return aggregateData(
-      this.speedTracks(),
-      Duration.fromDurationLike({ minutes: 15 })
-    ).map((item) => ({ timestamp: item.end, speed: item.averageSpeed }));
+  private interval = signal(Duration.fromDurationLike({ minutes: 15 }));
+
+  protected aggregatedSpeedTracks = computed<AggregatedSpeedTracks[]>(() => {
+    return aggregateData(this.speedTracks(), this.interval());
   });
 }

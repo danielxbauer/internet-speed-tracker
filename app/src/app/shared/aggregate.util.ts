@@ -1,20 +1,16 @@
 import { DateTime, Duration } from 'luxon';
+import { AggregatedSpeedTracks } from './aggregated-speed-tracks.model';
 import { SpeedTrackDto } from './speed-track.dto';
 
-function roundDownTo15Minutes(dt: DateTime) {
-  const minutes = Math.floor(dt.minute / 15) * 15;
-  return dt.set({ minute: minutes, second: 0, millisecond: 0 });
+function roundDownToInterval(dt: DateTime, duration: Duration): DateTime {
+  const millis = duration.as('milliseconds');
+  const timestamp = dt.toMillis();
+  const rounded = Math.floor(timestamp / millis) * millis;
+  return DateTime.fromMillis(rounded, { zone: dt.zone });
 }
 
 function getAverageSpeed(tracks: SpeedTrackDto[]): number {
   return tracks.reduce((sum, track) => sum + track.speed, 0) / tracks.length;
-}
-
-export interface AggregatedSpeedTracks {
-  start: DateTime;
-  end: DateTime;
-  averageSpeed: number;
-  tracks: SpeedTrackDto[];
 }
 
 export function aggregateData(
@@ -28,7 +24,7 @@ export function aggregateData(
   const aggregated: AggregatedSpeedTracks[] = [];
 
   let tracks: SpeedTrackDto[] = [];
-  let start = roundDownTo15Minutes(data[0].timestamp);
+  let start = roundDownToInterval(data[0].timestamp, interval);
   let end = start.plus(interval);
 
   for (const track of data) {
@@ -41,12 +37,14 @@ export function aggregateData(
           start: start,
           end: end,
           averageSpeed: getAverageSpeed(tracks),
+          minSpeed: Math.min(...tracks.map((t) => t.speed)),
+          maxSpeed: Math.max(...tracks.map((t) => t.speed)),
           tracks: tracks,
         });
       }
 
       tracks = [track];
-      start = roundDownTo15Minutes(timestamp);
+      start = roundDownToInterval(timestamp, interval);
       end = start.plus(interval);
     }
   }
@@ -57,6 +55,8 @@ export function aggregateData(
       start: start,
       end: end,
       averageSpeed: getAverageSpeed(tracks),
+      minSpeed: Math.min(...tracks.map((t) => t.speed)),
+      maxSpeed: Math.max(...tracks.map((t) => t.speed)),
       tracks: tracks,
     });
   }
