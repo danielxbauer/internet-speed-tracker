@@ -1,11 +1,8 @@
-import Chart from "chart.js/auto";
+import { type ChartConfiguration } from "chart.js/auto";
 import "chartjs-adapter-luxon";
 
-export async function buildChart(options: {
-  canvasId: string;
-  csvPath: string;
-}): Promise<void> {
-  const response = await fetch(options.csvPath);
+async function fetchCsvData(csvPath: string) {
+  const response = await fetch(csvPath);
   const data = await response.text();
 
   const rows = data.trim().split("\n");
@@ -14,28 +11,38 @@ export async function buildChart(options: {
 
   for (const row of rows) {
     const [timestamp, speed] = row.split(",");
-    // labels.push(new Date(timestamp));
     labels.push(timestamp);
     values.push(parseFloat(speed));
   }
 
-  const ctx = (
-    document.getElementById(options.canvasId) as HTMLCanvasElement
-  ).getContext("2d");
-  if (!ctx) return;
+  return { labels, values };
+}
 
-  new Chart(ctx, {
+export async function buildChart(csvPath: string) {
+  const { labels, values } = await fetchCsvData(csvPath);
+
+  const config: ChartConfiguration<"line", number[]> = {
     type: "line",
     data: {
       labels: labels,
       datasets: [{ label: "Download Speed (Mbps)", data: values }],
     },
     options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: {
+        mode: "index",
+        intersect: false,
+      },
       scales: {
         x: {
           type: "time",
           time: {
             unit: "hour",
+          },
+          ticks: {
+            autoSkip: true,
+            maxTicksLimit: 5, // helpful for small screens
           },
           title: {
             display: true,
@@ -50,12 +57,18 @@ export async function buildChart(options: {
           beginAtZero: true,
         },
       },
-      responsive: true,
-      maintainAspectRatio: false,
-      interaction: {
-        mode: "nearest",
-        intersect: false,
+      plugins: {
+        title: {
+          display: true,
+          text: "Internet Speed Over Time",
+        },
+        tooltip: {
+          mode: "nearest",
+          intersect: false,
+        },
       },
     },
-  });
+  };
+
+  return config;
 }
