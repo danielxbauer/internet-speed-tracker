@@ -4,18 +4,22 @@
 
 Just a little fun project to auto track download speed and visualize it into a chart.
 
+https://danielxbauer.github.io/internet-speed-tracker/
+
 ## Tracker
 
 ### Install
 
 ```
-cd speedtracker
+cd tracker
 python -m venv env
 env\Scripts\activate
 pip install -r requirements.txt
 ```
 
 ### Track
+
+Tracks internet speed and writes it into `speed_log.csv`
 
 ```
 python tracker.py
@@ -26,7 +30,7 @@ python tracker.py
 Tracks internet speed every x min, writes it into `speed_log.csv` and auto commits.
 
 ```
-python speedtracker/Scheduler.py
+python tracker/scheduler.py
 ```
 
 ## App

@@ -13,14 +13,11 @@ def trackJob():
     speed = measure_download_speed()
     print(f'[{timeNow()}] 🚀 Download Speed: {speed:.2f} Mbps')
     log_speed(csvFile, speed)
-    
-def commitJob():
     print(f"[{timeNow()}] 🆙 Run auto commit")
     auto_commit_and_push(csvFile, "feat: Update speed log")
-
+    
 scheduler = BackgroundScheduler()
-job = scheduler.add_job(trackJob, 'cron', minute='*/5')
-scheduler.add_job(commitJob, 'cron', minute='*/11')
+job = scheduler.add_job(trackJob, 'cron', minute='*/1')
 
 scheduler.start()
 
