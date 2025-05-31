@@ -16,15 +16,15 @@
     <app-kpi-card
       class="flex-1"
       header="Best Speed"
-      subHeader="in last 3 hours"
-      [value]="bestInLast3Hours()?.speed?.toFixed(2) ?? '-'"
+      subHeader="today"
+      [value]="bestToday()?.speed?.toFixed(2) ?? '-'"
       info="Mbps"
     />
     <app-kpi-card
       class="flex-1"
       header="Worst Speed"
-      subHeader="in last 3 hours"
-      [value]="wrostInLast3Hours()?.speed?.toFixed(2) ?? '-'"
+      subHeader="today"
+      [value]="worstToday()?.speed?.toFixed(2) ?? '-'"
       info="Mbps"
     />
   </div>

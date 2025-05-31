@@ -44,28 +44,24 @@ export class App {
     return tracks[tracks.length - 1];
   });
 
-  private tracksInLast3Hours = computed(() => {
-    const threeHoursAgo = DateTime.now().minus({ hours: 3 });
+  private tracksToday = computed(() => {
+    const threeHoursAgo = DateTime.now().startOf('day');
     return this.speedTracks().filter(
       (track) => track.timestamp >= threeHoursAgo
     );
   });
 
-  protected bestInLast3Hours = computed(() => {
-    const recentTracks = this.tracksInLast3Hours();
-    if (recentTracks.length === 0) {
-      return null;
-    }
-
-    return recentTracks.reduce((a, b) => (b.speed > a.speed ? b : a));
+  protected bestToday = computed(() => {
+    const tracks = this.tracksToday();
+    return tracks.length !== 0
+      ? tracks.reduce((a, b) => (b.speed > a.speed ? b : a))
+      : null;
   });
 
-  protected wrostInLast3Hours = computed(() => {
-    const recentTracks = this.tracksInLast3Hours();
-    if (recentTracks.length === 0) {
-      return null;
-    }
-
-    return recentTracks.reduce((a, b) => (b.speed < a.speed ? b : a));
+  protected worstToday = computed(() => {
+    const tracks = this.tracksToday();
+    return tracks.length !== 0
+      ? tracks.reduce((a, b) => (b.speed < a.speed ? b : a))
+      : null;
   });
 }
